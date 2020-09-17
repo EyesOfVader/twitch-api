@@ -213,9 +213,9 @@ class TwitchApi:
                 links.append(panel["linkURL"])
             if panel["description"]:
                 url_regex = compile(
-                    "(https?:\/\/|(www\.))+[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)"
+                    r"(?:https?:\/\/|(?:www\.))+[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b(?:[-a-zA-Z0-9()@:%_\+.~#?&//=]*)"
                 )
-                matches = [m[1:-1] for m in (findall(url_regex, panel["description"]))]
+                matches = findall(url_regex, panel["description"])
                 if matches:
                     links += matches
         logger.warning(f"Found the following links in channel panels: {links}")
